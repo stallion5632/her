@@ -12,7 +12,7 @@
  　　}
 
 ]]--
-local mongol = require("lua.db.mongol")
+local mongol = require("lua.persistence.db.mongol")
 local conf = require("lua.config.mongol_conf")
 local cjson = require("cjson")
 
@@ -43,8 +43,11 @@ end
 
 function _M.insert_user( self , doc )
 
-    if not _M.db or not doc then
-        return nil , 'user dao can not get db or nil doc'
+    if not _M.db  then
+        return nil , 'user dao can not get db '
+    end
+    if not doc then
+        return nil , 'user dao can not get nil doc'
     end
 
     return _M.db:insert(_M.collection,doc )
